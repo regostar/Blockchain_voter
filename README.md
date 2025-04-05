@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Blockchain Voting System
 
 A secure, transparent, and scalable blockchain-based voting application with integrated user accounts and wallet systems.
@@ -75,4 +75,4 @@ blockchain-voting/
 MIT License
 =======
 # HackInno
->>>>>>> 0ec0c7e5a8fbce6309b9d5c1337501337932fb5c
+
