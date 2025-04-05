@@ -1,0 +1,17 @@
+name: blockchain-voting
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.9
+  - nodejs=18
+  - npm
+  - postgresql=14
+  - redis=7
+  - pip
+  - pip:
+      - prisma
+      - hardhat
+      - truffle
+      - ganache-cli
+      - concurrently

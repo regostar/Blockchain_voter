@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  governmentId  String    @unique
+  walletAddress String    @unique
+  role          Role      @default(VOTER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  votes         Vote[]
+  auditLogs     AuditLog[]
+}
+
+model Election {
+  id          String    @id @default(uuid())
+  title       String
+  startTime   DateTime
+  endTime     DateTime
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  candidates  Candidate[]
+  votes       Vote[]
+}
+
+model Candidate {
+  id          String    @id @default(uuid())
+  name        String
+  electionId  String
+  election    Election  @relation(fields: [electionId], references: [id])
+  voteCount   Int       @default(0)
+  votes       Vote[]
+}
+
+model Vote {
+  id          String    @id @default(uuid())
+  userId      String
+  electionId  String
+  candidateId String
+  user        User      @relation(fields: [userId], references: [id])
+  election    Election  @relation(fields: [electionId], references: [id])
+  candidate   Candidate @relation(fields: [candidateId], references: [id])
+  createdAt   DateTime  @default(now())
+}
+
+model AuditLog {
+  id          String    @id @default(uuid())
+  userId      String
+  action      String
+  details     Json
+  createdAt   DateTime  @default(now())
+  user        User      @relation(fields: [userId], references: [id])
+}
+
+enum Role {
+  ADMIN
+  VOTER
+  AUDITOR
+} 

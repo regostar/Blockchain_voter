@@ -1,0 +1,5 @@
+prisma==5.9.1
+hardhat==2.19.4
+truffle==5.11.4
+ganache-cli==7.9.0
+concurrently==8.2.2 
